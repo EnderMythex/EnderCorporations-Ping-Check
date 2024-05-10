@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Ping</title>
+</head>
+<body>
+    <h1>WebSocket Ping</h1>
+    <p id="pingResponse"></p>
+
+    <script>
+        const socket = new WebSocket('ws://0.tcp.ngrok.io:12345');
+
+        socket.onopen = function(event) {
+            console.log('WebSocket connection established.');
+            // Envoyer un ping au serveur WebSocket une fois la connexion établie
+            socket.send('ping');
+        };
+
+        socket.onmessage = function(event) {
+            document.getElementById("pingResponse").innerHTML = event.data;
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+            document.getElementById("pingResponse").innerHTML = "BOT OFFLINE";
+        };
+    </script>
+</body>
+</html>
